@@ -7,9 +7,8 @@ module.exports = function (twitter) {
 
 	twitterStream = twitter.stream('statuses/filter', {
 		track: trackWords,
-	
 	language: global.botConfig.language
 	});
-
+    console.log("AQUI SI")
 	return twitterStream;
 };
