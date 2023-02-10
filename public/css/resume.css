@@ -210,7 +210,7 @@ input[type="checkbox"] { -webkit-appearance: checkbox; }
 
 input { -webkit-appearance: none; border-radius: 0; }
 
-.page-resume { background: #8A0707; }
+.page-resume { background: #CCC111; }
 .page-resume h1 { text-align: center; font-size: 24px; margin-bottom: 30px; color: #ffffff; }
 .page-resume h1 i { display: inline-block; background: url(../img/knife.png) no-repeat center center; background-size: contain; width: 40px; height: 40px; position: relative; top: 4px; }
 .page-resume h1 i.left { left: -10px; transform-origin: bottom left; }

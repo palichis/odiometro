@@ -1,7 +1,6 @@
 /** TWITTER **/
 // Twitter streaming
-
-var twitterConfig = require(global.appRoot + '/config/twitter_' + global.botName + '.json');
+var twitterConfig = require(global.appRoot + '/config/twitterpost_' + global.botName + '.json');
 var fs = require('fs');
 
 var Twit = require('twit');
@@ -81,4 +80,3 @@ twitterObject.getTweet = function (id_str, callback) {
 }
 
 module.exports = twitterObject;
-

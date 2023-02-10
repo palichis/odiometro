@@ -19,7 +19,7 @@ global.botConfig = require("./config/" + bot + ".json");
 global.phantomJsBin = process.env.PHANTOMJS;
 
 // Libs
-var twitter = require("./app/lib/twitter.js");
+var twitter = require("./app/lib/twitterpost.js");
 var OdiometroBot = require("./app/models/OdiometroBot.js");
 
 /*
@@ -27,8 +27,9 @@ var OdiometroBot = require("./app/models/OdiometroBot.js");
 | CRON
 |--------------------------------------------------------------------------
 */
+console.log("RUN CRON CREO")
 const cron = require("node-cron");
-cron.schedule("0 19 * * *", function () {
+cron.schedule("* * * * *", function () {
 	var hours = 24;
 	OdiometroBot.initialize(twitter);
 	OdiometroBot.postResumeTweet(hours, true);

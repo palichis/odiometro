@@ -390,7 +390,10 @@ database.saveHistoricData = function (
 
 // AUXILIAR
 database.currentDateTimeInMySQLFormat = function () {
-	return new Date().toISOString().slice(0, 19).replace('T', ' ');
+    //var date = new Date();
+    //datte = new Date(date.getTime() - 18000000).toISOString().slice(0, 19).replace('T', ' ');
+    //return datte
+    return new Date().toISOString().slice(0, 19).replace('T', ' ');
 };
 
 database.getDateTimeInMySQLFormatXMinutesAgo = function (timeInMinutes) {

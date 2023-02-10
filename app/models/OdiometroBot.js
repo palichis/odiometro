@@ -6,8 +6,8 @@ var Historic = require("./Historic.js");
 var OdiometroBot = {
 
 	twitter: null,
-	pathToMediaFile: '/var/www/html/odiometro/public/img/resume/resume.png',
-	pathToPhantomJs: '/var/www/html/odiometro/renderers/resume.js',
+	pathToMediaFile: '/app/public/img/resume/resume.png',
+	pathToPhantomJs: '/app/renderers/resume.js',
 
 	initialize: function (twitter) {
 		this.twitter = twitter;
@@ -49,9 +49,9 @@ var OdiometroBot = {
 
 			var exec = require('child_process').exec;
 			var url = global.urlBase + '/resume?hours=' + hours;
-			var cmd = global.phantomJsBin + ' ' + that.pathToPhantomJs + ' ' + url + ' ' + that.pathToMediaFile;
+			var cmd = 'QT_QPA_PLATFORM=offscreen ' + global.phantomJsBin + ' ' + that.pathToPhantomJs + ' ' + url + ' ' + that.pathToMediaFile;
 
-			console.log(cmd);
+			console.log("CMD message " + cmd);
 
 			exec(cmd, function (error, stdout, stderr) {
 
@@ -59,24 +59,25 @@ var OdiometroBot = {
 
 				var altText = 'Media tuits/odio minuto: ' + average + '. Máximo tuits/odio minuto: ' + max + '. ¿Quién ha propagado más odio?: @' + hatefulUser.user + '. ¿Quién ha recibido más odio?: ' + hatedUser.user;
 
-				that.twitter.postTweetWithMedia(that.pathToMediaFile, templateResumeFirst, altText, function (firstTweet) {
-
-					that.twitter.postTweetAsReplyTo(templateResumeSecond, firstTweet.id_str, function (secondTweet) {
-						that.twitter.postTweetAsReplyTo(templateResumeThird, secondTweet.id_str, function (thirdTweet) {
-
-							if (lastTweet) {
-								that.twitter.postTweetAsReplyTo(templateResumeLast, thirdTweet.id_str, function (lastTweet) {
-									console.log('Tweets sent! With last tweet');
-								});
-							} else {
-								console.log('Tweets sent! Without last tweet');
-							}
-						});
-					});
+			    that.twitter.postTweetWithMedia(that.pathToMediaFile, templateResumeFirst, altText, function (firstTweet) {
+				console.log('PRIMERO ' + that.pathToMediaFile + '   ' + templateResumeFirst + ' ')
+				that.twitter.postTweetAsReplyTo(templateResumeSecond, firstTweet.id_str, function (secondTweet) {
+				    that.twitter.postTweetAsReplyTo(templateResumeThird, secondTweet.id_str, function (thirdTweet) {
+					
+					if (lastTweet) {
+					    that.twitter.postTweetAsReplyTo(templateResumeLast, thirdTweet.id_str, function (lastTweet) {
+						console.log('Tweets sent! With last tweet');
+					    });
+					} else {
+					    console.log('Tweets sent! Without last tweet');
+					}
+					console.log("AQUI... 1 " + firstTweet.id_str + " 2 " + secondTweet.id_str + " 3 " + thirdTweet.id_str)
+				    });
 				});
-
+			    });
+			    
 			});
-
+		    
 		});
 
 	},

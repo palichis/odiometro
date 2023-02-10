@@ -31,8 +31,10 @@ require('./routes')(app, io);
 // Libs
 var database = require("./app/lib/database.js");
 var twitter = require("./app/lib/twitter.js");
+var twitterv2 = require("./app/lib/twitterv2.js");
 var track = require("./app/lib/track.js");
 var twitterStream = require("./app/lib/twitterStream.js")(twitter);
+var TApi = require('twitter-api-v2');
 
 // Data
 var ignoreLocations = global.botConfig.ignore_locations;
@@ -90,8 +92,17 @@ io.on('connection', function (socket) {
 
 });
 
-// Twitter Stream
-twitterStream.on('tweet', function (tweet) {
+//Twitter Stream
+(async () => {
+    var twitterStreamv2 = await require("./app/lib/twitterStreamv2.js")(twitterv2);
+    twitterStreamv2.on(TApi.ETwitterStreamEvent.Data,function (tweet){
+	console.log(tweet)
+	var tweetText = Tweet.getText(tweet);
+	console.log(tweetText)
+    });
+})();
+
+/*twitterStream.on('tweet', function (tweet) {
 
 	try {
 		var tweetText = Tweet.getText(tweet);
@@ -143,7 +154,7 @@ twitterStream.on('tweet', function (tweet) {
 		console.log(err);
 	}
 
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------

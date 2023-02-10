@@ -248,12 +248,19 @@ Tweet.isValidLocation = function (tweet, ignoreLocations, ignoreAccounts, ignore
 	var quotedUserLocation = tweet.quoted_status && tweet.quoted_status.user.location ? tweet.quoted_status.user.location.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : null;
 
 	ignoreLocations.forEach(function (location) {
-
-		location = location.toLowerCase();
-
+	    location = location.toLowerCase();
+	    if (location == "españa")
+	    {
+	
+		if (userLocation && userLocation.includes(location)) {
+		    console.log("USER LOCATION " + userLocation);
+		    console.log("LOCATION " + location)
+		}
+	    }
 		// If user's location
 		if (userLocation && userLocation.includes(location)) {
-			isValidLocation = false;
+		    isValidLocation = false;
+	
 		}
 
 		// If retweeted user's location
